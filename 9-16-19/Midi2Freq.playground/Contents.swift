@@ -35,6 +35,30 @@ buffer.append(C0)
 for index in 1...127 {
     buffer.append(buffer[index-1]*magicInterval)
 }
+// We can use a dictionary to provide the note names
+
+var noteNames: [Int: String] = [0: "C",
+                                1: "C#/Db",
+                                2: "D",
+                                3: "D#/Eb",
+                                4: "E",
+                                5: "F",
+                                6: "F#/Gb",
+                                7: "G",
+                                8: "G#/Ab",
+                                9: "A",
+                                10: "A#/Bb",
+                                11: "B"]
+
 for index in 0...127 {
-    print(String(format:"%d\t%.7f", index, buffer[index]))
+    print(String(format:"%d\t\t%.7f", index, buffer[index]) + String(format:"\t\t") + String(noteNames[index%12]!))
 }
+
+// When using a dictionary, we provide a key to the dictionary, and it returns a value.
+// Swift interprets dictionary lookups as risky. For example, there is no value to noteNames[12]
+// For that reason, it demands that we use the '!' after the variable name + index to assert that there might not be a valid value.
+// If we say noteNames[0]! then the dictionary will return the value C.
+// All of that is good only up through noteNames[11]. After that, there are no more values in the dictionary.
+// Because the pattern repeats cyclically. We use the modulo division operator '('%' to say divide the index by 12, and leave the remainder.
+
+
