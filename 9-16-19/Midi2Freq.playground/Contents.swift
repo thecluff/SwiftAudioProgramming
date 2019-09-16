@@ -26,5 +26,15 @@ let octave = pow(1.059463094359295, Double(12))
 // A440 is tuning reference
 let A440 = 440.0
 let CAboveA440 = A440 * pow(magicInterval, Double(3))
-let C0 = CAboveA440 * pow(CAboveA440, Double(-6))
+let C0 = CAboveA440 * pow(Double(2), Double(-6))
 
+var buffer = [Double]()
+// Set the first element of the array to C0
+buffer.append(C0)
+// Use a loop which is controlled iteration, generate the other frequency values
+for index in 1...127 {
+    buffer.append(buffer[index-1]*magicInterval)
+}
+for index in 0...127 {
+    print(String(format:"%d\t%.7f", index, buffer[index]))
+}
