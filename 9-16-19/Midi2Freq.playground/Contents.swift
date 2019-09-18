@@ -61,4 +61,3 @@ for index in 0...127 {
 // All of that is good only up through noteNames[11]. After that, there are no more values in the dictionary.
 // Because the pattern repeats cyclically. We use the modulo division operator '('%' to say divide the index by 12, and leave the remainder.
 
-
