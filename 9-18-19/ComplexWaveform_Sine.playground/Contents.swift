@@ -38,7 +38,6 @@ func cmplxWave(sampleRate: Double, frequency: Double, amplitude: Double, nSample
 let sawWave = cmplxWave(sampleRate: 44100, frequency: 200, amplitude: 1.0, nSamples: 1000, numHarmonics: 17)
 sawWave.map() {$0}
 
-
 //: The above (line 28) assumes that every harmonic will be calculated. In many cases we do not calculate every harmonic.
 //: Two examples are square waves, and triangle waves.
 //: In a square wave, we only calculate the odd numbered harmonic, in other words 1, 3, 5, 7, ...
@@ -47,3 +46,4 @@ sawWave.map() {$0}
 //: For k in stride(from: 1, to: numHarmonics, by 2)
 //: ### Coding assigment for next class period
 //: Code a square wave, based on the example above. How many harmonics does it take to make the square wave *square*?
+//: Answer: 9
