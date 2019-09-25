@@ -26,6 +26,7 @@ let reverbNode = AVAudioUnitReverb()
 
 //: Connect nodes to build a signal path
 engine.attach(mixerNode)
+engine.attach(reverbNode)
 engine.connect(inputNode, to: reverbNode, format: nil)
 engine.connect(reverbNode, to: mixerNode, format: nil)
 engine.connect(mixerNode, to: outputNode, format: nil)
