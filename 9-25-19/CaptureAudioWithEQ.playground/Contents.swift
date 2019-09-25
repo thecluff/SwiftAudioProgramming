@@ -36,8 +36,6 @@ engine.attach(eqNode)
 engine.connect(inputNode, to: eqNode, format: nil)
 engine.connect(eqNode, to: mixerNode, format: nil)
 engine.connect(mixerNode, to: outputNode, format: nil)
-//: Node settings
-//eqNode.preGain = 1.0
 
 mixerNode.volume = 0.5
 
