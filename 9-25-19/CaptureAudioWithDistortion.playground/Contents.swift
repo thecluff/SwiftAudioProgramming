@@ -19,18 +19,19 @@ outputNode = engine.outputNode
 //: Add a node to control volume - with a GUI, we can control the volume level in real time.
 let mixerNode = AVAudioMixerNode()
 
-//: Add a reverb processor
-let reverbNode = AVAudioUnitReverb()
+//: Add a distortion processor
+let distortionNode = AVAudioUnitDistortion()
 
 //: Connect nodes to build a signal path
 engine.attach(mixerNode)
-engine.attach(reverbNode)
-engine.connect(inputNode, to: reverbNode, format: nil)
-engine.connect(reverbNode, to: mixerNode, format: nil)
+engine.attach(distortionNode)
+engine.connect(inputNode, to: distortionNode, format: nil)
+engine.connect(distortionNode, to: mixerNode, format: nil)
 engine.connect(mixerNode, to: outputNode, format: nil)
 //: Node settings
-reverbNode.wetDryMix = 50
-reverbNode.loadFactoryPreset(AVAudioUnitReverbPreset.mediumHall3)
+distortionNode.preGain = 1.0
+distortionNode.wetDryMix = 50
+
 mixerNode.volume = 0.5
 
 //: Now for the execution
@@ -46,3 +47,4 @@ do {
 } catch {
     print("Failed to start audio engine: \(error.localizedDescription) ")
 }
+
