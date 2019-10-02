@@ -2,7 +2,7 @@ import Cocoa
 import Foundation
 import AVFoundation
 
-let fileNameWithPath = "lotus.wav"
+let fileNameWithPath = "/Users/charliecluff/Desktop/SwiftAudioProgramming/SwiftAudioProgramming/9-30-19/lotus.wav"
 
 let engine = AVAudioEngine()
 
@@ -27,7 +27,7 @@ let delayNode = AVAudioUnitDelay()
 delayNode.wetDryMix = 50
 delayNode.lowPassCutoff = 10000
 delayNode.feedback = 50
-delayNode.delayTime = 1000
+delayNode.delayTime = 1889.76377953
 
 //: Node settings
 let distortionNode = AVAudioUnitDistortion()
