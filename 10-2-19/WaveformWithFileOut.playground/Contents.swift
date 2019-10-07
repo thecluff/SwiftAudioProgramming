@@ -5,7 +5,7 @@ let SAMPLE_RATE = 44100.0
 let duration = 0.5
 let nSamples = SAMPLE_RATE * duration
 
-let fileNameWithPath = "/Users/charliecluff/Desktop/SwiftAudioProgramming/SwiftAudioProgramming/10-2-19.sinewave.caf"
+let fileNameWithPath = "/Users/charliecluff/Desktop/SwiftAudioProgramming/SwiftAudioProgramming/exampleAudio/NewSinewave.caf"
 let url = URL(fileURLWithPath: fileNameWithPath)
 
 func sinewave(sampleRate: Double, frequency: Double, amplitude: Double, nSamples: Int) -> [Double] {
@@ -29,7 +29,7 @@ let outputFormatSettings = [
 let audioFile = try? AVAudioFile(forWriting: url, settings: outputFormatSettings, commonFormat: AVAudioCommonFormat.pcmFormatFloat32, interleaved: true)
 
 let bufferFormat = AVAudioFormat(settings:outputFormatSettings)
-let outputBuffer = AVAudioPCMBuffer(pcmFormat: <#T##AVAudioFormat#>, frameCapacity: AVAudioPCMBuffer(newSine.count))
+let outputBuffer = AVAudioPCMBuffer(pcmFormat: bufferFormat!, frameCapacity: AVAudioFrameCount(newSine.count))
 
 for i in 0..<newSine.count {
     outputBuffer?.floatChannelData!.pointee[i] = Float(newSine[i])
