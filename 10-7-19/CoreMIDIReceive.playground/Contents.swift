@@ -29,7 +29,7 @@ func myMIDIReadProc(pktList: UnsafePointer<MIDIPacketList>, readProcRefCon: Unsa
         // Loop to iterate through the packet length
         var i = packet.length
         for(_, attr) in bytes.enumerated() {
-            //: Look fot eh middle message in the packet and transpose it by seven (perfect 5th)
+            //: Look fot the middle message in the packet and transpose it by seven (perfect 5th)
             //: The packets seem to be read from back to front, and numbered 1 through 3.
             if(i == 2) {
                 print(attr.value as! UInt8 + 7)
