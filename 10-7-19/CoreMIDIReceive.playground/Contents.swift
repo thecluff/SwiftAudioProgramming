@@ -18,7 +18,7 @@ func myMIDIReadProc(pktList: UnsafePointer<MIDIPacketList>, readProcRefCon: Unsa
     let packetList: MIDIPacketList = pktList.pointee
     let srcRef: MIDIEndpointRef = srcConnRefCon!.load(as: MIDIEndpointRef.self)
     
-    print("MIDI Received from Sourc: \(getDisplayName(srcRef))" )
+//    print("MIDI Received from Sourc: \(getDisplayName(srcRef))" )
     
     var packet:MIDIPacket = packetList.packet
     
@@ -29,14 +29,25 @@ func myMIDIReadProc(pktList: UnsafePointer<MIDIPacketList>, readProcRefCon: Unsa
         // Loop to iterate through the packet length
         var i = packet.length
         for(_, attr) in bytes.enumerated() {
+            //: Look fot eh middle message in the packet and transpose it by seven (perfect 5th)
+            //: The packets seem to be read from back to front, and numbered 1 through 3.
+            if(i == 2) {
+                print(attr.value as! UInt8 + 7)
+            } else {
+                print(attr.value)
+            }
+            
             dumpStr += String(format:"$%02X ", attr.value as! UInt8)
             i -= 1;
             if (i <= 0) {
                 break;
             }
+           
         }
-        // Print the contents of the message
-        print(dumpStr)
+        
+        // Break up each one for easier reading
+         print("\n")
+        
         packet = MIDIPacketNext(&packet).pointee
     }
 }
