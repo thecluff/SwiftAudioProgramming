@@ -6,13 +6,11 @@ func getDisplayName(_ obj: MIDIObjectRef) -> String
 {
     var param: Unmanaged<CFString>?
     var name: String = "Error";
-    
     let err: OSStatus = MIDIObjectGetStringProperty(obj, kMIDIPropertyDisplayName, &param)
     if err == OSStatus(noErr)
     {
         name =  param!.takeRetainedValue() as String
     }
-    
     return name;
 }
 
@@ -38,34 +36,27 @@ var outPort:MIDIPortRef = 0;
 MIDIClientCreate("MidiTestClient" as CFString, nil, nil, &midiClient);
 MIDIOutputPortCreate(midiClient, "MidiTest_OutPort" as CFString, &outPort);
 
+let noteArray: [UInt8] = [0, 12, 9, 10]
+
 var packetArray = [MIDIPacket]()
 
 // The sequence length needs to be even
-let sequenceLength = 24
+let sequenceLength = noteArray.count * 2
 
 for n in 0..<sequenceLength {
-    
     packetArray.append(MIDIPacket())
     packetArray[n].timeStamp = 0
     packetArray[n].length = 3
     packetArray[n].data.0 = 0x90
 
     if n%2 == 0 {
-        packetArray[n].data.1 = UInt8(0x3c + n/2)
+        packetArray[n].data.1 = UInt8(0x3c + noteArray[n/2])
         packetArray[n].data.2 = 0x4B
         } else {
-        packetArray[n].data.1 = UInt8(0x3c + (n/2))
+        packetArray[n].data.1 = UInt8(0x3c + noteArray[n/2])
         packetArray[n].data.2 = 0
         }
 }
-
-// Guard packet
-//packetArray.append(MIDIPacket())
-//packetArray[sequenceLength/2+1].timeStamp = 0
-//packetArray[sequenceLength/2+1].length = 3
-//packetArray[sequenceLength/2+1].data.0 = 0x90
-//packetArray[sequenceLength/2+1].data.1 = UInt8(0x3C + (sequenceLength/2))
-//packetArray[sequenceLength/2+1].data.2 = 0
 
 var packetList:MIDIPacketList = MIDIPacketList(numPackets: 20, packet: packetArray[0]);
 
