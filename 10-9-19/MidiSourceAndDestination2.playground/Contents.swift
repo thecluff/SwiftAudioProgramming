@@ -36,12 +36,14 @@ var outPort:MIDIPortRef = 0;
 MIDIClientCreate("MidiTestClient" as CFString, nil, nil, &midiClient);
 MIDIOutputPortCreate(midiClient, "MidiTest_OutPort" as CFString, &outPort);
 
-let noteArray: [UInt8] = [0, 12, 9, 10]
+// The sequence length needs to be even
+let sequenceLength = 24
+
+let noteArray: [UInt8] = [0, 2, 4, 5, 7, 9, 11]
 
 var packetArray = [MIDIPacket]()
 
-// The sequence length needs to be even
-let sequenceLength = noteArray.count * 2
+var x = 0
 
 for n in 0..<sequenceLength {
     packetArray.append(MIDIPacket())
@@ -50,10 +52,11 @@ for n in 0..<sequenceLength {
     packetArray[n].data.0 = 0x90
 
     if n%2 == 0 {
-        packetArray[n].data.1 = UInt8(0x3c + noteArray[n/2])
+        x = Int.random(in:0...7)
+        packetArray[n].data.1 = UInt8(0x3c + noteArray[x])
         packetArray[n].data.2 = 0x4B
         } else {
-        packetArray[n].data.1 = UInt8(0x3c + noteArray[n/2])
+        packetArray[n].data.1 = UInt8(0x3c + noteArray[x])
         packetArray[n].data.2 = 0
         }
 }
