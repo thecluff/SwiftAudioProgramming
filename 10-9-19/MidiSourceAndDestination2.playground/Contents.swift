@@ -1,3 +1,11 @@
+//: # This playground generates tones in the egyptian scale.
+//: ## I recorded a random series of tones using this program for each basic waveshape using a Pd patch I made via Soundflower.
+//: ## Then, I lined up each recording using Logic, which resulted in interesting chords.
+//: Some of the chords were a litte dissonant, so I chopped up the chords and left out the less favorable ones.
+//: Then, I arranged each chord into a nice sounding progression. I then used a couple other Pd patches (inlcuded in the .zip file) to generate other tones using this program.
+//: I added some effects using another Swift program (also included in the .zip file) to the second set of sounds I made, mainly delay and distortion.
+//: Then, I arranged all of the sounds using Logic Pro X, and then saved the end result as ./Swifty.wav (44100 24bit PCM)
+
 import Cocoa
 import CoreMIDI
 import PlaygroundSupport
@@ -77,6 +85,7 @@ print("Playing note for 1 second on channel 1")
 for n in 0..<sequenceLength/2 {
     packetList = MIDIPacketList(numPackets: 1, packet: packetArray[n*2]);
     MIDISend(outPort, dest, &packetList);
+//    print(packetList)
     sleep(1);
     packetList = MIDIPacketList(numPackets: 1, packet: packetArray[n*2+1]);
     MIDISend(outPort, dest, &packetList);
