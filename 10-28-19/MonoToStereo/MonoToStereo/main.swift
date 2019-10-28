@@ -9,21 +9,20 @@
 import Foundation
 import AVFoundation
 
-let src = URL(fileURLWithPath: "/Users/charliecluff/Desktop/SwiftAudioProgramming/SwiftAudioProgramming/exampleAudio/JDilla_Smooth.wav")
-
-let dst = URL(fileURLWithPath: "/Users/charliecluff/Desktop/SwiftAudioProgramming/SwiftAudioProgramming/10-28-19/JDilla_SmoothMono.caf")
+let src = URL(fileURLWithPath: "/Users/charliecluff/Desktop/SwiftAudioProgramming/SwiftAudioProgramming/10-28-19/DillaOrganMono.wav")
+let dst = URL(fileURLWithPath: "/Users/charliecluff/Desktop/SwiftAudioProgramming/SwiftAudioProgramming/10-28-19/DillaOrganMonoToStereo.caf")
 
 let srcFile = try AVAudioFile(forReading: src)
-
 let channelCount = srcFile.fileFormat.channelCount
-// Test the file to see if it is stereo
 
-if (channelCount != 2){
+// Test the file to see if it is stereo
+if (channelCount > 1){
     print("Input file has \(channelCount) channels")
     exit(1)
 }
 
 let fileFormat = srcFile.fileFormat
+
 // Declare frame count and sample rate
 let frameCount = AVAudioFrameCount(srcFile.length)
 print("The number of frames is \(frameCount)")
@@ -35,32 +34,28 @@ let outputFormatSettings = [
     AVLinearPCMBitDepthKey: 32,
     AVLinearPCMIsFloatKey: true,
     AVSampleRateKey: sampleRate,
-    AVNumberOfChannelsKey: 1
+    AVNumberOfChannelsKey: 2
     ] as [String: Any]
 
-// Set up destination file
 let dstFile = try? AVAudioFile(forWriting: dst, settings: outputFormatSettings, commonFormat: AVAudioCommonFormat.pcmFormatFloat32, interleaved: true)
 
+// Set up destination file
+
 guard let buffer = AVAudioPCMBuffer(pcmFormat: srcFile.processingFormat, frameCapacity: frameCount)
-    else { fatalError("Input file cannot be read, my dawg.")}
+    else { fatalError("Input samples cannot be read from the file, my dawg.")}
 
 let bufferFormat = AVAudioFormat(settings: outputFormatSettings)
+let outputBuffer = AVAudioPCMBuffer(pcmFormat: bufferFormat!, frameCapacity: AVAudioFrameCount(frameCount*2))
 
-let outputBuffer = AVAudioPCMBuffer(pcmFormat: bufferFormat!, frameCapacity: AVAudioFrameCount(frameCount))
-
-// Read audio samples from disk into memory
 try srcFile.read(into: buffer, frameCount: frameCount)
 
-// Test input to see if samples are valid
-//for i in 0...500 {
-//    print(buffer.floatChannelData!.pointee[Int(i)])
-//}
-
-// Copy samples and consolidate channels
 for i in 0..<frameCount {
-    outputBuffer?.floatChannelData!.pointee[Int(i)] = (buffer.floatChannelData!.pointee[Int(i)] + buffer.floatChannelData!.pointee[Int(i) + Int(frameCount)]) / 2.0
+    outputBuffer?.floatChannelData!.pointee[Int(i*2)] = buffer.floatChannelData!.pointee[Int(i)]
+    if(i>0) {
+        outputBuffer?.floatChannelData!.pointee[Int(i*2-1)] = buffer.floatChannelData!.pointee[Int(i)]
+    }
 }
-// Operator precedence = division higher precedence than division
+
 outputBuffer!.frameLength = AVAudioFrameCount(frameCount)
 
 print("The number of output frames is \(outputBuffer?.frameCapacity as Any).")
