@@ -18,7 +18,7 @@ if(CommandLine.argc<4){
 var selection = Int(CommandLine.arguments[3])
 var normFac: Float = 0.0
 var gainFac: Float = 1.5
-var clipValue: Float = 0.5
+var clipValue: Float = 1.0
 let SAMPLE_RATE = 44100.0
 
 //let srcPath = "/Users/charliecluff/Desktop/SwiftAudioProgramming/SwiftAudioProgramming/exampleAudio/JDilla_Smooth.wav"
@@ -71,6 +71,7 @@ case 1:
     }
 case 2:
     print("Now performing gain \n")
+    gainFac = Float(CommandLine.arguments[4])!
     for i in 0..<frameCount*channelCount {
         buffer.floatChannelData!.pointee[Int(i)] =  buffer.floatChannelData!.pointee[Int(i)] * gainFac
     }
@@ -80,6 +81,9 @@ case 3:
         if(buffer.floatChannelData!.pointee[Int(i)]<0) { // Check polarity
             buffer.floatChannelData!.pointee[Int(i)] = buffer.floatChannelData!.pointee[Int(i)] * -1.0
             // If below 0, multiply by -1
+        }else {
+            buffer.floatChannelData!.pointee[Int(i)] =
+                buffer.floatChannelData!.pointee[Int(i)]
         }
     }
 case 4:
@@ -89,13 +93,15 @@ case 4:
     }
 case 5:
     print("Now performing clipping \n")
+    clipValue = Float(CommandLine.arguments[4])!
     for i in 0..<frameCount*channelCount {
-        if(buffer.floatChannelData!.pointee[Int(i)]>clipValue) { // Check polarity
+        if(buffer.floatChannelData!.pointee[Int(i)]>clipValue) {
             buffer.floatChannelData!.pointee[Int(i)] = buffer.floatChannelData!.pointee[Int(i)] * clipValue
         }
     }
 case 6:
     print("Now performing extortion \n")
+    clipValue = Float(CommandLine.arguments[4])!
     for i in 0..<frameCount*channelCount {
         buffer.floatChannelData!.pointee[Int(i)] =  buffer.floatChannelData!.pointee[Int(i)] * 50
     }
