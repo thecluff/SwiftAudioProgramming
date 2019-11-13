@@ -63,20 +63,24 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/charliecluff/Desktop/SwiftAudioProgramming/SwiftAudioProgramming/exampleAudio/DillaOrgan.wav"
-            isEnabled = "NO">
+            argument = "/Users/charliecluff/Desktop/SwiftAudioProgramming/SwiftAudioProgramming/10-23-19/AudioMultiProcessing/Media/DillaOrgan.wav"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/charliecluff/Desktop/SwiftAudioProgramming/SwiftAudioProgramming/11-4-19/DillaOrganProcessed.caf"
-            isEnabled = "NO">
+            argument = "/Users/charliecluff/Desktop/SwiftAudioProgramming/SwiftAudioProgramming/10-23-19/AudioMultiProcessing/Media/DillaOrgan_panModAccelerate.caf"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "2"
-            isEnabled = "NO">
+            argument = "13"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "0.25"
-            isEnabled = "NO">
+            argument = "2.5"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "10"
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
