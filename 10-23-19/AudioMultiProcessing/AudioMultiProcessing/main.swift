@@ -40,12 +40,11 @@ guard let buffer = AVAudioPCMBuffer(pcmFormat: srcFile.processingFormat, frameCa
 try srcFile.read(into: buffer, frameCount: frameCount)
 
 print("Welcome to Audio multi-processing.\n")
-//print("Please choose from the following options.\n")
 print("\t1. Normalization\n")
-print("\t2. Gain\n")
+print("\t2. Gain gainFac\n")
 print("\t3. Rectification\n")
 print("\t4. Inversion\n")
-print("\t5. Clip\n")
+print("\t5. Clip clipValue\n")
 print("\t7. Fade In\n")
 print("\t8. Fade Out\n")
 print("\t9. Amplitude Modulation\n")
@@ -53,6 +52,7 @@ print("\t10. Variable Amplitude Modulation\n")
 print("\t11. Waveshaper\n")
 print("\t12. Reverse\n")
 print("\t13. Pan Modulation\n")
+print("\t14. Biquad filter\n")
 
 //: Loop through the buffer and change the amplitudes of the samples by a constant factor. (i.e., gain)
 //: When the samples are in the audio files, they are interleaved. They are read into the buffer de-interleaved.
@@ -68,6 +68,7 @@ case 1:
             normFac = abs(buffer.floatChannelData!.pointee[Int(i)])
         }
     }
+    // Scale gain to 1.0
     for i in 0..<frameCount*channelCount {
         buffer.floatChannelData!.pointee[Int(i)] = buffer.floatChannelData!.pointee[Int(i)] * 1.0/normFac
     }
@@ -123,10 +124,10 @@ case 7:
     // Convert fade in time to number of samples
     // Capture the fade in time from command line
     let fadeInTime = Double(CommandLine.arguments[4])!
-    let nSamps = Int(srcFile.fileFormat.sampleRate * Double(srcFile.fileFormat.channelCount) * fadeInTime)
+    let nSamps = Int(srcFile.fileFormat.sampleRate * Double(channelCount) * fadeInTime)
     
     // Check for stereo
-    if (srcFile.fileFormat.channelCount==2) {
+    if (channelCount==2) {
         for i in 0..<nSamps {
             buffer.floatChannelData!.pointee[Int(i)] *= (Float(i) / Float(nSamps))
             buffer.floatChannelData!.pointee[Int(i+Int(frameCount))] *= (Float(i) / Float(nSamps))
@@ -142,10 +143,10 @@ case 8:
     // Convert fade out time to number of samples
     // Capture the fade out time from command line
     let fadeInTime = Double(CommandLine.arguments[4])!
-    let nSamps = Int(srcFile.fileFormat.sampleRate * Double(srcFile.fileFormat.channelCount) * fadeInTime)
+    let nSamps = Int(srcFile.fileFormat.sampleRate * Double(channelCount) * fadeInTime)
     
     // Check for stereo
-    if (srcFile.fileFormat.channelCount==2) {
+    if (channelCount==2) {
         for i in 0..<nSamps {
             buffer.floatChannelData!.pointee[Int(frameCount) - 1 - Int(i)] *= (Float(i) / Float(nSamps))
             buffer.floatChannelData!.pointee[(Int(frameCount) * 2) - 1 - Int(i)+Int(frameCount)] *= (Float(i) / Float(nSamps))
@@ -165,7 +166,7 @@ case 9:
     // Generate a sine wave and multiply each sample of the source by a sine wave sample value
     
     // Check for stereo
-    if (srcFile.fileFormat.channelCount==2) {
+    if (channelCount==2) {
         for i in 0..<frameCount {
             tr = amp * sin(freq*Double(i)*2.0*Double.pi/srcFile.fileFormat.sampleRate+phase)
             buffer.floatChannelData!.pointee[Int(frameCount) - 1 - Int(i)] *= Float(tr)
@@ -179,7 +180,7 @@ case 9:
     }
 case 10:
     // Variable Amplitude Modulation - needs frequency, sample rate
-    print("Now performing amplitude modulation \n")
+    print("Now performing variable amplitude modulation \n")
     let amp = 1.0
     let freq = Double(CommandLine.arguments[4])!
     let phase = 0.0
@@ -188,7 +189,7 @@ case 10:
     // Generate a sine wave and multiply each sample of the source by a sine wave sample value
     
     // Check for stereo
-    if (srcFile.fileFormat.channelCount==2) {
+    if (channelCount==2) {
         for i in 0..<frameCount {
             lfo = freq * Double(i)/Double(frameCount)
             tr = amp * sin(lfo*Double(i)*2.0*Double.pi/srcFile.fileFormat.sampleRate+phase)
@@ -205,34 +206,34 @@ case 10:
 case 11:
     // Simple tangent waveshaper a la Will Pirkle
     // Needs two distortion factors
-//    let DistortionFacA = Double(CommandLine.arguments[4])!
-//    let DistortionFacB = Double(CommandLine.arguments[5])!
+    let DistortionFacA = Double(CommandLine.arguments[4])!
+    let DistortionFacB = Double(CommandLine.arguments[5])!
     print("Yo")
-//    if (srcFile.fileFormat.channelCount==2) {
-//        for i in 0..<frameCount {
-//            buffer.floatChannelData!.pointee[Int(i)] = Float(tanh(DistortionFacA)*Double(buffer.floatChannelData!.pointee[Int(i)]))/Float(tanh(DistortionFacA))
-//            buffer.floatChannelData!.pointee[Int(i)+Int(frameCount)] = Float(tanh(DistortionFacB)*Double(buffer.floatChannelData!.pointee[Int(i)+Int(frameCount)]))/Float(tanh(DistortionFacB))
-//        }
-//    } else {
-//        for i in 0..<frameCount {
-//                        buffer.floatChannelData!.pointee[Int(i)] *= Float(tanh(DistortionFacA))*buffer.floatChannelData!.pointee[Int(i)]/tanh(DistortionFacA))
-//        }
-//    }
-//}
+    if (channelCount==2) {
+        for i in 0..<frameCount {
+            buffer.floatChannelData!.pointee[Int(i)] = Float(tanh(DistortionFacA)*Double(buffer.floatChannelData!.pointee[Int(i)]))/Float(tanh(DistortionFacA))
+            buffer.floatChannelData!.pointee[Int(i)+Int(frameCount)] = Float(tanh(DistortionFacB)*Double(buffer.floatChannelData!.pointee[Int(i)+Int(frameCount)]))/Float(tanh(DistortionFacB))
+        }
+    } else {
+        for i in 0..<frameCount {
+                        buffer.floatChannelData!.pointee[Int(i)] = Float(tanh(DistortionFacA)*Double(buffer.floatChannelData!.pointee[Int(i)]))/Float(tanh(DistortionFacA))
+        }
+    }
+    
 case 12:
     // Reverse
     // Reverse requires a temp buffer - the idea is that we copy fom the end to the beginning of the source file into the destination file in normal beginning to end direction
     print("Now Performing Reverse")
     
     // Declare a copy buffer
-    var tempBuf = Array(repeating: Float(0.0), count: Int(frameCount*srcFile.fileFormat.channelCount))
+    var tempBuf = Array(repeating: Float(0.0), count: Int(frameCount*channelCount))
     
     // Copy from the main buffer to temp buffer
-    for i in stride(from: 0, to: frameCount*srcFile.fileFormat.channelCount, by: 1) {
-        tempBuf[Int(frameCount*srcFile.fileFormat.channelCount-1-i)] = buffer.floatChannelData!.pointee[Int(i)]
+    for i in stride(from: 0, to: frameCount*channelCount, by: 1) {
+        tempBuf[Int(frameCount*channelCount-1-i)] = buffer.floatChannelData!.pointee[Int(i)]
     }
     
-    for i in stride(from: 0, to: frameCount*srcFile.fileFormat.channelCount, by: 1) {
+    for i in stride(from: 0, to: frameCount*channelCount, by: 1) {
         buffer.floatChannelData!.pointee[Int(i)] = tempBuf[Int(i)]
     }
 
@@ -249,7 +250,7 @@ case 13:
     let accelerate = Double(CommandLine.arguments[5])!
     
     // Check for stereo
-    if(srcFile.fileFormat.channelCount==2) {
+    if(channelCount==2) {
         for i in 0..<frameCount {
             if (accelerate == 1){
                 lfo = freq * Double(i)/Double(frameCount)
@@ -265,8 +266,90 @@ case 13:
         // Do nothing
     }
     
+case 14:
+    var b0: Float = 0.0
+    var b1: Float = 0.0
+    var b2: Float = 0.0
+    var a1: Float = 0.0
+    var a2: Float = 0.0
     
- 
+    // Examples:
+    // Notch CF = 0.2 is 1.0 -1.61 1.0 1.46 -0.81
+    // LPF is 1.0, 0.0, 0.0, 1.8, -0.81
+    // HPF is 1.0, 0.0, 0.0, -1.8, -0.81
+    // BPF 0.37 * NF is 1.0, 0.0, 0.0, 0.715, -0.81
+    // BRF 0.75 * NF is 1.0, 1.414, 1.0, 0.0, 0.0
+    // BPF 0.5 * NF is 1.0, 0.0, 0.0, 0.0, -0.81
+    // BRF 0.2 * NF is 1.0, -1.61, 1.0, 1.46, -0.81
+    
+    switch Int(CommandLine.arguments[4]) {
+    case 1:
+        print("Notch at 0.2 pi")
+        b0 = 1.0
+        b1 = -1.61
+        b2 = 1.0
+        a1 = 1.46
+        a2 = -0.81
+    case 2:
+        print("Notch at 0.75 pi")
+        b0 = 1.0
+        b1 = 1.414
+        b2 = 1.0
+        a1 = 0.0
+        a2 = 0.0
+    case 3:
+        print("Low pass")
+        b0 = 1.0
+        b1 = 0.0
+        b2 = 0.0
+        a1 = 1.8
+        a2 = -0.81
+    case 4:
+        print("High pass")
+        b0 = 1.0
+        b1 = 0.0
+        b2 = 0.0
+        a1 = -1.8
+        a2 = -0.81
+    default:
+        print("Please select a case 1-5")
+    }
+    // Biquad filter
+    print("Now performing biquad filtering \n")
+    // Temp buffer
+    var tempBuf = Array(repeating: Float(0.0), count: Int(frameCount*channelCount))
+    // 4 filter delays
+    var xn1: Float = 0.0
+    var xn2: Float = 0.0
+    var yn1: Float = 0.0
+    var yn2: Float = 0.0
+    
+    // Begin to loop
+    for i in stride(from: 0, to: frameCount*channelCount, by: 1){
+        tempBuf[Int(i)] = buffer.floatChannelData!.pointee[Int(i)]*b0 + xn1*b1 + xn2*b2 + yn1*a1 + yn2*a2
+        yn2 = yn1
+        yn1 = tempBuf[Int(i)]
+        xn2 = xn1
+        xn1 = buffer.floatChannelData!.pointee[Int(i)]
+    }
+    
+    // Copy samples back into main buffer
+    for i in stride(from: 0, to: frameCount*channelCount, by: 1) {
+        buffer.floatChannelData!.pointee[Int(i)] = tempBuf[Int(i)]
+    }
+    
+    print("Now performing normalization \n")
+    for i in 0..<frameCount*channelCount {
+        if(abs(buffer.floatChannelData!.pointee[Int(i)])>normFac) {
+            normFac = abs(buffer.floatChannelData!.pointee[Int(i)])
+        }
+    }
+    // Scale gain to 1.0
+    for i in 0..<frameCount*channelCount {
+        buffer.floatChannelData!.pointee[Int(i)] = buffer.floatChannelData!.pointee[Int(i)] * 1.0/normFac
+    }
+    
+    
 default:
 print("Now performing.. ")
 }

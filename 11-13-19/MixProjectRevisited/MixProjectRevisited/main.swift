@@ -32,7 +32,7 @@ let channelCount1 = srcFile1.fileFormat.channelCount
 
 guard let buffer1 = AVAudioPCMBuffer(pcmFormat: srcFile1.processingFormat, frameCapacity: frameCount1)
     else {
-        fatalError("Derp")
+        fatalError("Input buffer 1 could not be allocated.")
 }
 try srcFile1.read(into: buffer1, frameCount: frameCount1)
 
@@ -46,7 +46,7 @@ guard let buffer2 = AVAudioPCMBuffer(pcmFormat: srcFile2.processingFormat, frame
 try srcFile2.read(into: buffer2, frameCount: frameCount2)
 
 if(srcFile1.processingFormat.sampleRate != srcFile2.processingFormat.sampleRate) {
-    print("Sample rate mismatch between source files")
+    print("Input buffer 2 could not be allocated.")
     exit(1)
 }
 
@@ -70,10 +70,22 @@ for i in 0..<frameCount1 {
 }
 
 for i in offsetInFrames*Int(srcFile1.fileFormat.channelCount)..<Int(mixFrameCount*srcFile1.fileFormat.channelCount) {
-    mixBuffer[i] = mixBuffer[i] + buffer2.floatChannelData!.pointee[i-offsetInFrames*Int(srcFile1.fileFormat.channelCount)]
+    mixBuffer[Int(i)*2] = mixBuffer[Int(i)*2] + buffer2.floatChannelData!.pointee[i-offsetInFrames*Int(srcFile1.fileFormat.channelCount)]
     if(i>0) {
-       mixBuffer[i] = mixBuffer[i] + buffer2.floatChannelData!.pointee[i-offsetInFrames*Int(srcFile1.fileFormat.channelCount)+Int(frameCount1)]
+       mixBuffer[Int(i)*2-1] = mixBuffer[Int(i)*2-1] + buffer2.floatChannelData!.pointee[i-offsetInFrames*Int(srcFile1.fileFormat.channelCount)+Int(frameCount1)]
     }
 }
 
 let dstFile = try AVAudioFile(forWriting: dst, settings: srcFile1.fileFormat.settings, commonFormat: srcFile1.processingFormat.commonFormat, interleaved: srcFile1.processingFormat.isInterleaved)
+
+guard let outputBuffer = AVAudioPCMBuffer(pcmFormat: srcFile2.processingFormat, frameCapacity: mixFrameCount)
+    else {
+        fatalError("Output buffer could not be allocated.")
+}
+
+// Copy audio samples from the mix buffer to the output buffer
+for i in 0..<mixFrameCount*srcFile1.fileFormat.channelCount{
+    outputBuffer.floatChannelData!.pointee[Int(i)] = mixBuffer[1]
+}
+
+try dstFile.write(from: outputBuffer)
