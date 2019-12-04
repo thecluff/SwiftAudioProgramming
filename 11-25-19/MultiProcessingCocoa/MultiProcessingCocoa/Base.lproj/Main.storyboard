@@ -688,7 +688,7 @@
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="contentRect" x="196" y="240" width="480" height="441"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
@@ -707,23 +707,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="MultiProcessingCocoa" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="441"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YNX-Nv-t0v">
-                                <rect key="frame" x="198" y="96" width="77" height="22"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="tks-tl-ig5">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <action selector="sayTextEntered:" target="XfG-lQ-9wD" id="Vhc-G6-vMs"/>
-                                </connections>
-                            </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z3Q-uP-NrI">
-                                <rect key="frame" x="201" y="208" width="50" height="18"/>
+                                <rect key="frame" x="201" y="379" width="50" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Gain" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="XgZ-af-Jbp">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -734,7 +722,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6zz-M2-Nkr">
-                                <rect key="frame" x="201" y="186" width="83" height="18"/>
+                                <rect key="frame" x="201" y="357" width="83" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Normalize" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Mmh-Pd-NPM">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -744,19 +732,8 @@
                                     <action selector="sayRBClicked:" target="XfG-lQ-9wD" id="fAI-KA-j4t"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ek9-hT-yvK">
-                                <rect key="frame" x="201" y="164" width="71" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="radio" title="Reverse" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="lEF-2i-RTa">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="sayRBClicked:" target="XfG-lQ-9wD" id="FnL-kq-1I9"/>
-                                </connections>
-                            </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="daw-WD-gbY">
-                                <rect key="frame" x="377" y="199" width="89" height="32"/>
+                                <rect key="frame" x="377" y="370" width="89" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Process" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ESb-7K-7jM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -767,7 +744,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nho-wh-RD2">
-                                <rect key="frame" x="14" y="197" width="71" height="32"/>
+                                <rect key="frame" x="14" y="368" width="71" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Input" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wag-IT-gPw">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -778,7 +755,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gAc-gY-KfC">
-                                <rect key="frame" x="20" y="233" width="102" height="17"/>
+                                <rect key="frame" x="27" y="406" width="102" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Select Input File" id="PlF-5u-OLx">
                                     <font key="font" metaFont="system"/>
@@ -787,7 +764,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D8w-iZ-2tF">
-                                <rect key="frame" x="167" y="233" width="146" height="17"/>
+                                <rect key="frame" x="174" y="406" width="146" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Select Processing Type" id="VKD-8Y-u8m">
                                     <font key="font" metaFont="system"/>
@@ -795,17 +772,8 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vln-98-FMx">
-                                <rect key="frame" x="146" y="126" width="189" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Enter Processing Parameter(s)" id="JX4-Ao-Nfo">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P25-NM-XWG">
-                                <rect key="frame" x="381" y="233" width="57" height="17"/>
+                                <rect key="frame" x="388" y="406" width="57" height="17"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Process!" id="a5v-iJ-Toq">
                                     <font key="font" metaFont="system"/>
@@ -813,18 +781,182 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="akS-1Q-702">
+                                <rect key="frame" x="201" y="313" width="57" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Invert" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="jrG-3N-Sqe">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sayRBClicked:" target="XfG-lQ-9wD" id="qXF-vO-VCf"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FkG-Yz-5b4">
+                                <rect key="frame" x="201" y="291" width="46" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Clip" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="grm-Zh-SmC">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sayRBClicked:" target="XfG-lQ-9wD" id="qMk-wT-4jc"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vPj-zq-2Xv">
+                                <rect key="frame" x="201" y="269" width="77" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Extortion" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="MOb-ZK-JMl">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sayRBClicked:" target="XfG-lQ-9wD" id="Nfk-HD-Bst"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="elI-yD-T7o">
+                                <rect key="frame" x="201" y="247" width="63" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="FadeIn" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="TDW-KT-stf">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sayRBClicked:" target="XfG-lQ-9wD" id="dhx-r9-U0u"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PY5-mh-2W9">
+                                <rect key="frame" x="201" y="225" width="74" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="FadeOut" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="dCe-Ck-MZM">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sayRBClicked:" target="XfG-lQ-9wD" id="7Ue-FI-KNw"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N35-kZ-bxo">
+                                <rect key="frame" x="201" y="335" width="65" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Rectify" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="TCh-ba-dh1">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sayRBClicked:" target="XfG-lQ-9wD" id="O06-Qe-MlQ"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ffF-rl-8JO">
+                                <rect key="frame" x="201" y="203" width="77" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="AmpMod" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="ZgH-H8-U34">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sayRBClicked:" target="XfG-lQ-9wD" id="brQ-DK-koI"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kSe-sp-lXU">
+                                <rect key="frame" x="201" y="181" width="107" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Var. Amp Mod" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="ijD-GU-k8O">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sayRBClicked:" target="XfG-lQ-9wD" id="ogb-5A-EOG"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ff6-bC-90g">
+                                <rect key="frame" x="201" y="159" width="92" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Waveshape" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="OyR-5S-jcX">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sayRBClicked:" target="XfG-lQ-9wD" id="5vU-0h-eZm"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zQ7-Fj-3Ni">
+                                <rect key="frame" x="201" y="137" width="71" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Reverse" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="OAV-4m-Rht">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sayRBClicked:" target="XfG-lQ-9wD" id="r83-Ug-7RX"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CBr-zz-7uJ">
+                                <rect key="frame" x="201" y="115" width="75" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Pan Mod" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Eja-co-86S">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sayRBClicked:" target="XfG-lQ-9wD" id="OZg-p9-IpA"/>
+                                </connections>
+                            </button>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YNX-Nv-t0v">
+                                <rect key="frame" x="200" y="40" width="77" height="22"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="tks-tl-ig5">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="sayTextEntered:" target="XfG-lQ-9wD" id="Vhc-G6-vMs"/>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vln-98-FMx">
+                                <rect key="frame" x="148" y="70" width="189" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Enter Processing Parameter(s)" id="JX4-Ao-Nfo">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fIX-DJ-amj">
+                                <rect key="frame" x="188" y="8" width="96" height="22"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="wcW-rW-dnW">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="sayTextEntered:" target="XfG-lQ-9wD" id="Kn4-Eu-2Gt"/>
+                                </connections>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="AmpMod" destination="ffF-rl-8JO" id="cDe-oq-C0U"/>
+                        <outlet property="Clip" destination="FkG-Yz-5b4" id="v3t-jL-NxM"/>
+                        <outlet property="Extortion" destination="vPj-zq-2Xv" id="U3W-o1-5mz"/>
+                        <outlet property="FadeIn" destination="elI-yD-T7o" id="BJJ-1A-JRa"/>
+                        <outlet property="FadeOut" destination="PY5-mh-2W9" id="hq7-r4-Ur0"/>
                         <outlet property="Gain" destination="Z3Q-uP-NrI" id="gg0-Cg-wg5"/>
+                        <outlet property="Invert" destination="akS-1Q-702" id="h1m-FM-pdw"/>
                         <outlet property="Normalize" destination="6zz-M2-Nkr" id="Hge-qa-I4O"/>
+                        <outlet property="PanMod" destination="CBr-zz-7uJ" id="dcF-Ge-jSY"/>
                         <outlet property="Param1" destination="YNX-Nv-t0v" id="2Zy-Wh-vGt"/>
-                        <outlet property="Reverse" destination="ek9-hT-yvK" id="mqN-5C-CQb"/>
+                        <outlet property="Rectify" destination="N35-kZ-bxo" id="2Hr-i7-vex"/>
+                        <outlet property="Reverse" destination="zQ7-Fj-3Ni" id="NTM-tX-iXX"/>
+                        <outlet property="VarAmpMod" destination="kSe-sp-lXU" id="a3h-Gm-Zib"/>
+                        <outlet property="Waveshape" destination="ff6-bC-90g" id="jWG-38-Qsm"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="740.5"/>
         </scene>
     </scenes>
 </document>

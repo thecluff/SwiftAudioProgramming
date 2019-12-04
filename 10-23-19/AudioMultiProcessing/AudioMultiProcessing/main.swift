@@ -108,7 +108,7 @@ case 5:
     }
 case 6:
     // "Extortion" - Extreme distortion
-    print("Now performing extortion \n")
+    s
     clipValue = Float(CommandLine.arguments[4])!
     for i in 0..<frameCount*channelCount {
         buffer.floatChannelData!.pointee[Int(i)] =  buffer.floatChannelData!.pointee[Int(i)] * 50
