@@ -206,17 +206,27 @@ case 10:
 case 11:
     // Simple tangent waveshaper a la Will Pirkle
     // Needs two distortion factors
-    let DistortionFacA = Double(CommandLine.arguments[4])!
-    let DistortionFacB = Double(CommandLine.arguments[5])!
-    print("Yo")
+    print("Now performing waveshaping")
+    let tableSize = 2048
+    var tempBuf = Array(repeating: Float(0.0), count: Int(tableSize))
+    var index1: Int = 0
+    var index2: Int = 0
+    
+    for i in 0..<tableSize {
+        tempBuf[Int(i)] = pow((Float(i) / Float(tableSize) * 2.0) - 1.0, 3.0)
+    }
+    
     if (channelCount==2) {
         for i in 0..<frameCount {
-            buffer.floatChannelData!.pointee[Int(i)] = Float(tanh(DistortionFacA)*Double(buffer.floatChannelData!.pointee[Int(i)]))/Float(tanh(DistortionFacA))
-            buffer.floatChannelData!.pointee[Int(i)+Int(frameCount)] = Float(tanh(DistortionFacB)*Double(buffer.floatChannelData!.pointee[Int(i)+Int(frameCount)]))/Float(tanh(DistortionFacB))
+            index1 = Int((buffer.floatChannelData!.pointee[Int(i)] / 2.0 + 0.5) * Float(tableSize))
+                index2 = Int((buffer.floatChannelData!.pointee[Int(i)+Int(frameCount)] / 2.0 + 0.5) * Float(tableSize))
+                buffer.floatChannelData!.pointee[Int(i)] = tempBuf[index1]
+                buffer.floatChannelData!.pointee[Int(i)+Int(frameCount)] = tempBuf[index2]
         }
     } else {
         for i in 0..<frameCount {
-                        buffer.floatChannelData!.pointee[Int(i)] = Float(tanh(DistortionFacA)*Double(buffer.floatChannelData!.pointee[Int(i)]))/Float(tanh(DistortionFacA))
+            index1 = Int((buffer.floatChannelData!.pointee[Int(i)] / 2.0 + 0.5) * Float(tableSize))
+                buffer.floatChannelData!.pointee[Int(i)] = tempBuf[index1]
         }
     }
     
